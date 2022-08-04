@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -27,7 +28,7 @@ public class Serie {
 	@Column(name="imageurl")
 	private String imageUrl;
 	
-	@Column(name="genreid")
 	@OneToOne
+	@JoinColumn(name="genreid")
 	private Genre genre;
 }

@@ -2,6 +2,7 @@ package com.selfdevelopment.streamingapp.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class RankingServiceImpl implements RankingService {
 		List<RankingTop10Mapped> response = new ArrayList<>();
 		listTop10.stream().forEach((element) -> {
 			RankingTop10Mapped rankingElement = new RankingTop10Mapped();
+			rankingElement.setId(new Random().nextLong());
 			rankingElement.setGenre(element.getGenre());
 			rankingElement.setImageUrl(element.getImageurl());
 			rankingElement.setMovieName(element.getMoviename());

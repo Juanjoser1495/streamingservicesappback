@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RankingTop10Mapped {
 
+	private Long id;
 	private String movieName;
 	private String imageUrl;
 	private String genre;

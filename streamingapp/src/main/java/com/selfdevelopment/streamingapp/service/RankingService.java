@@ -7,5 +7,6 @@ import com.selfdevelopment.streamingapp.entity.RankingTop10Mapped;
 public interface RankingService {
 	
 	List<RankingTop10Mapped> fetchTop10ByGenre(String category);
+	List<RankingTop10Mapped> fetchTop10AllGenre();
 
 }

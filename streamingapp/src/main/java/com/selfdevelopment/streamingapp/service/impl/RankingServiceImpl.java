@@ -41,4 +41,10 @@ public class RankingServiceImpl implements RankingService {
 		return response;
 	}
 
+	@Override
+	public List<RankingTop10Mapped> fetchTop10AllGenre() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -1,4 +1,4 @@
-package com.selfdevelopment.streamingapp.entity;
+package com.selfdevelopment.streamingapp.entity.database;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

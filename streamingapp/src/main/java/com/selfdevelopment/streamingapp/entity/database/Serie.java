@@ -1,4 +1,4 @@
-package com.selfdevelopment.streamingapp.entity;
+package com.selfdevelopment.streamingapp.entity.database;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,18 +12,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="movie")
+@Table(name="serie")
 @Data
 @NoArgsConstructor
-public class Movie {
-	
+public class Serie {
+
 	@Id
 	@GeneratedValue
-	@Column(name="idmovie")
-	private Long idMovie;
+	@Column(name="idserie")
+	private Long idSerie;
 	
-	@Column(name="moviename")
-	private String movieName;
+	@Column(name="nameserie")
+	private String serieName;
 	
 	@Column(name="imageurl")
 	private String imageUrl;

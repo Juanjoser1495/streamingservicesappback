@@ -33,7 +33,7 @@ public class StreamingAppController {
 	public ResponseEntity<RankingTop10Response> getTop10FromGenre(@PathVariable("category") String category){
 		List<RankingTop10Mapped> rankingTop10ByGenre = rankingService.fetchTop10ByGenre(category);
 		if(!rankingTop10ByGenre.isEmpty()) {
-			return new ResponseEntity<>(new RankingTop10Response(StreamingAppConstants.DATA_SUCCESSUFULL_RETRIEVED,rankingTop10ByGenre), HttpStatus.OK);
+			return new ResponseEntity<>(new RankingTop10Response(StreamingAppConstants.DATA_SUCCESSFULL_RETRIEVED,rankingTop10ByGenre), HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>(new RankingTop10Response(StreamingAppConstants.CATEGORY_NOT_FOUND_OR_NO_RECORDS_ON_THAT_CATEGORY,null), HttpStatus.OK);
 		}
@@ -44,7 +44,7 @@ public class StreamingAppController {
 	public ResponseEntity<RankingTop10Response> getTop10AllGenre(){
 		List<RankingTop10Mapped> rankingTop10 = rankingService.fetchTop10AllGenre();
 		if(!rankingTop10.isEmpty()) {
-			return new ResponseEntity<>(new RankingTop10Response(StreamingAppConstants.DATA_SUCCESSUFULL_RETRIEVED,rankingTop10), HttpStatus.OK);
+			return new ResponseEntity<>(new RankingTop10Response(StreamingAppConstants.DATA_SUCCESSFULL_RETRIEVED,rankingTop10), HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>(new RankingTop10Response(StreamingAppConstants.CATEGORY_NOT_FOUND_OR_NO_RECORDS_ON_THAT_CATEGORY,null), HttpStatus.OK);
 		}
@@ -56,9 +56,9 @@ public class StreamingAppController {
 	public ResponseEntity<String> addAVote(@RequestBody AddVoteRequest addVoteRequest){
 		boolean isUpdated = rankingService.addAVote(addVoteRequest);
 		if(isUpdated) {
-			return new ResponseEntity<>("", HttpStatus.OK);
+			return new ResponseEntity<>(StreamingAppConstants.SUCCESSFULL_UPDATED, HttpStatus.OK);
 		}else {
-			return new ResponseEntity<>("", HttpStatus.OK);
+			return new ResponseEntity<>(StreamingAppConstants.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

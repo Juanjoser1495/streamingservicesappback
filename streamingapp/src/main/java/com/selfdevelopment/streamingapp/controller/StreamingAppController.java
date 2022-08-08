@@ -28,7 +28,18 @@ public class StreamingAppController {
 	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/genre/{category}")
 	public ResponseEntity<RankingTop10Response> getTop10FromGenre(@PathVariable("category") String category){
-		List<RankingTop10Mapped> rankingTop10 = rankingService.fetchTop10ByGenre(category);
+		List<RankingTop10Mapped> rankingTop10ByGenre = rankingService.fetchTop10ByGenre(category);
+		if(!rankingTop10ByGenre.isEmpty()) {
+			return new ResponseEntity<>(new RankingTop10Response(StreamingAppConstants.DATA_SUCCESSUFULL_RETRIEVED,rankingTop10ByGenre), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>(new RankingTop10Response(StreamingAppConstants.CATEGORY_NOT_FOUND_OR_NO_RECORDS_ON_THAT_CATEGORY,null), HttpStatus.OK);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:3000")
+	@GetMapping("/genre")
+	public ResponseEntity<RankingTop10Response> getTop10AllGenre(){
+		List<RankingTop10Mapped> rankingTop10 = rankingService.fetchTop10AllGenre();
 		if(!rankingTop10.isEmpty()) {
 			return new ResponseEntity<>(new RankingTop10Response(StreamingAppConstants.DATA_SUCCESSUFULL_RETRIEVED,rankingTop10), HttpStatus.OK);
 		}else {

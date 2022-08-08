@@ -25,10 +25,10 @@ public class RankingServiceImpl implements RankingService {
 	@Override
 	public List<RankingTop10Mapped> fetchTop10ByGenre(String category) {
 		
-		List<RankingTop10> listTop10 = genreRepository.findTop10ByGenre(category);
+		List<RankingTop10> listTop10ByGenre = genreRepository.findTop10ByGenre(category);
 		
 		List<RankingTop10Mapped> response = new ArrayList<>();
-		listTop10.stream().forEach((element) -> {
+		listTop10ByGenre.stream().forEach((element) -> {
 			RankingTop10Mapped rankingElement = new RankingTop10Mapped();
 			rankingElement.setId(new Random().nextLong());
 			rankingElement.setGenre(element.getGenre());
@@ -43,8 +43,20 @@ public class RankingServiceImpl implements RankingService {
 
 	@Override
 	public List<RankingTop10Mapped> fetchTop10AllGenre() {
-		// TODO Auto-generated method stub
-		return null;
+		List<RankingTop10> listTop10 = genreRepository.findTop10AllGenre();
+		List<RankingTop10Mapped> response = new ArrayList<>();
+		
+		listTop10.stream().forEach((element) -> {
+			RankingTop10Mapped rankingElement = new RankingTop10Mapped();
+			rankingElement.setId(new Random().nextLong());
+			rankingElement.setGenre(element.getGenre());
+			rankingElement.setImageUrl(element.getImageurl());
+			rankingElement.setMovieName(element.getMoviename());
+			
+			response.add(rankingElement);
+		});
+		
+		return response;
 	}
 
 }

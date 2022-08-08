@@ -31,4 +31,7 @@ public class Movie {
 	@OneToOne
 	@JoinColumn(name="genreid")
 	private Genre genre;
+	
+	@Column(name = "likes")
+	private Integer likes;
 }

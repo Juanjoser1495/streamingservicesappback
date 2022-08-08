@@ -8,9 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.selfdevelopment.streamingapp.entity.RankingTop10Mapped;
+import com.selfdevelopment.streamingapp.entity.model.request.AddVoteRequest;
 import com.selfdevelopment.streamingapp.entity.model.response.RankingTop10Response;
 import com.selfdevelopment.streamingapp.service.RankingService;
 import com.selfdevelopment.streamingapp.utils.StreamingAppConstants;
@@ -44,6 +47,18 @@ public class StreamingAppController {
 			return new ResponseEntity<>(new RankingTop10Response(StreamingAppConstants.DATA_SUCCESSUFULL_RETRIEVED,rankingTop10), HttpStatus.OK);
 		}else {
 			return new ResponseEntity<>(new RankingTop10Response(StreamingAppConstants.CATEGORY_NOT_FOUND_OR_NO_RECORDS_ON_THAT_CATEGORY,null), HttpStatus.OK);
+		}
+	}
+	
+	
+	@CrossOrigin(origins = "http://localhost:3000")
+	@PostMapping("/like")
+	public ResponseEntity<String> addAVote(@RequestBody AddVoteRequest addVoteRequest){
+		boolean isUpdated = rankingService.addAVote(addVoteRequest);
+		if(isUpdated) {
+			return new ResponseEntity<>("", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>("", HttpStatus.OK);
 		}
 	}
 }

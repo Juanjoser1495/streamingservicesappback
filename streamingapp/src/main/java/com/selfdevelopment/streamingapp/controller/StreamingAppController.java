@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.selfdevelopment.streamingapp.entity.RankingTop10Mapped;
 import com.selfdevelopment.streamingapp.entity.model.request.AddVoteRequest;
 import com.selfdevelopment.streamingapp.entity.model.response.RankingTop10Response;
+import com.selfdevelopment.streamingapp.entity.model.response.StringResponse;
 import com.selfdevelopment.streamingapp.service.RankingService;
 import com.selfdevelopment.streamingapp.utils.StreamingAppConstants;
 
@@ -52,13 +53,13 @@ public class StreamingAppController {
 	
 	
 	@CrossOrigin(origins = "http://localhost:3000")
-	@PostMapping("/like")
-	public ResponseEntity<String> addAVote(@RequestBody AddVoteRequest addVoteRequest){
+	@PostMapping(value = "/like")
+	public ResponseEntity<StringResponse> addAVote(@RequestBody AddVoteRequest addVoteRequest){
 		boolean isUpdated = rankingService.addAVote(addVoteRequest);
 		if(isUpdated) {
-			return new ResponseEntity<>(StreamingAppConstants.SUCCESSFULL_UPDATED, HttpStatus.OK);
+			return new ResponseEntity<>(new StringResponse(StreamingAppConstants.SUCCESSFULL_UPDATED),HttpStatus.OK);
 		}else {
-			return new ResponseEntity<>(StreamingAppConstants.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(new StringResponse(StreamingAppConstants.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

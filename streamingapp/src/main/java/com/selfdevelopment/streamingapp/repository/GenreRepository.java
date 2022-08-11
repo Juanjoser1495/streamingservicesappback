@@ -11,7 +11,7 @@ import com.selfdevelopment.streamingapp.entity.database.Genre;
 
 public interface GenreRepository extends JpaRepository<Genre, Long> {
 
-	@Query(value ="select unionTables.idmovie, unionTables.moviename,unionTables.imageurl,g.genre from "
+	@Query(value ="select unionTables.idmovie, unionTables.moviename,unionTables.imageurl,g.genre, unionTables.likes from "
 			+ "(select m.idmovie, m.moviename,m.imageurl,m.genreid,m.likes  from movie m "
 			+ "union "
 			+ "select s.idserie, s.nameserie,s.imageurl,s.genreid,s.likes  from serie s) unionTables "

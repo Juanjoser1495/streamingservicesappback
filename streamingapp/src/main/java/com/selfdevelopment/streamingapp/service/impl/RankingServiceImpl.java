@@ -72,26 +72,24 @@ public class RankingServiceImpl implements RankingService {
 	@Override
 	public boolean addAVote(AddVoteRequest addVoteRequest) {
 		boolean isUpdated = false;
-		try {
-			Movie movie = movieRepository.findByMovieNameIgnoreCase(addVoteRequest.getTitle());
-			if (movie != null) {
-				movie.setLikes(movie.getLikes() + 1);
-				movie = movieRepository.save(movie);
 
-				isUpdated = movie != null ? true : false;
-			} else {
-				Serie serie = serieRepository.findBySerieNameIgnoreCase(addVoteRequest.getTitle());
+		Movie movie = movieRepository.findByMovieNameIgnoreCase(addVoteRequest.getTitle());
+		if (movie != null) {
+			movie.setLikes(movie.getLikes() + 1);
+			movie = movieRepository.save(movie);
 
-				if (serie != null) {
-					serie.setLikes(serie.getLikes() + 1);
-					serieRepository.save(serie);
-					
-					isUpdated = serie != null ? true :false;
-				}
+			isUpdated = movie != null ? true : false;
+		} else {
+			Serie serie = serieRepository.findBySerieNameIgnoreCase(addVoteRequest.getTitle());
+
+			if (serie != null) {
+				serie.setLikes(serie.getLikes() + 1);
+				serie = serieRepository.save(serie);
+
+				isUpdated = serie != null ? true : false;
 			}
-		} catch (Exception e) {
-			System.out.println(e);
 		}
+
 		return isUpdated;
 	}
 

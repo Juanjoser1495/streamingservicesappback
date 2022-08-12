@@ -20,12 +20,12 @@ import com.selfdevelopment.streamingapp.service.RankingService;
 import com.selfdevelopment.streamingapp.utils.StreamingAppConstants;
 
 @RestController
-public class StreamingAppController {
+public class RankingController {
 
 	private final RankingService rankingService;
 	
 	@Autowired
-	public StreamingAppController(RankingService rankingService) {
+	public RankingController(RankingService rankingService) {
 		this.rankingService = rankingService;
 	}
 	

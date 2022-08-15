@@ -29,7 +29,7 @@ public class GenreController {
 		if(!listGenre.isEmpty()) {
 			return new ResponseEntity<>(new GenericObjectResponse(StreamingAppConstants.DATA_SUCCESSFULL_RETRIEVED,listGenre), HttpStatus.OK);
 		}else {
-			return new ResponseEntity<>(new GenericObjectResponse(StreamingAppConstants.CATEGORY_NOT_FOUND_OR_NO_RECORDS_ON_THAT_CATEGORY,null), HttpStatus.OK);
+			return new ResponseEntity<>(new GenericObjectResponse(StreamingAppConstants.GENRES_NOT_FOUND,null), HttpStatus.OK);
 		}
 	}
 }

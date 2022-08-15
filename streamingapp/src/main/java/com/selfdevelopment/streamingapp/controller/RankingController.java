@@ -20,18 +20,18 @@ import com.selfdevelopment.streamingapp.service.RankingService;
 import com.selfdevelopment.streamingapp.utils.StreamingAppConstants;
 
 @RestController
-public class StreamingAppController {
+public class RankingController {
 
 	private final RankingService rankingService;
 	
 	@Autowired
-	public StreamingAppController(RankingService rankingService) {
+	public RankingController(RankingService rankingService) {
 		this.rankingService = rankingService;
 	}
 	
 	@CrossOrigin(origins = "http://localhost:3000")
-	@GetMapping("/genre/{category}")
-	public ResponseEntity<RankingTop10Response> getTop10FromGenre(@PathVariable("category") String category){
+	@GetMapping("/ranking/{genre}")
+	public ResponseEntity<RankingTop10Response> getTop10FromGenre(@PathVariable("genre") String category){
 		List<RankingTop10Mapped> rankingTop10ByGenre = rankingService.fetchTop10ByGenre(category);
 		if(!rankingTop10ByGenre.isEmpty()) {
 			return new ResponseEntity<>(new RankingTop10Response(StreamingAppConstants.DATA_SUCCESSFULL_RETRIEVED,rankingTop10ByGenre), HttpStatus.OK);
@@ -41,7 +41,7 @@ public class StreamingAppController {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:3000")
-	@GetMapping("/genre")
+	@GetMapping("/ranking")
 	public ResponseEntity<RankingTop10Response> getTop10AllGenre(){
 		List<RankingTop10Mapped> rankingTop10 = rankingService.fetchTop10AllGenre();
 		if(!rankingTop10.isEmpty()) {

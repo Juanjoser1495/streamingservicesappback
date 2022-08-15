@@ -6,5 +6,7 @@ public class StreamingAppConstants {
 	public static final String DATA_SUCCESSFULL_RETRIEVED = "Data successufull retrieved";
 	public static final String SUCCESSFULL_UPDATED = "Data updated";
 	public static final String INTERNAL_SERVER_ERROR = "Internal Server Error";
+	
+	public static final String GENRES_NOT_FOUND = "Genres not found";
 
 }

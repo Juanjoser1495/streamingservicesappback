@@ -1,7 +1,9 @@
 package com.selfdevelopment.streamingapp.mockobjects;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
@@ -120,4 +122,25 @@ public class RankingServiceObjects {
 		return thePunisher;
 	}
 	
+	public static List<Movie> getListMovieObject() {
+		List<Movie> listMovie = new ArrayList<>();
+		listMovie.add(getMovieObject());
+		
+		return listMovie;
+	}
+	
+	public static List<Serie> getListSerieObject() {
+		List<Serie> listSerie = new ArrayList<>();
+		listSerie.add(getSerieObject());
+		
+		return listSerie;
+	}
+	
+	
+	public static Map<String, Integer> getRankingGenres() {
+		Map<String,Integer> rankingGenres = new HashMap<>();
+		rankingGenres.put("action", 24);
+		rankingGenres.put("terror", 0);
+		return rankingGenres;
+	}
 }

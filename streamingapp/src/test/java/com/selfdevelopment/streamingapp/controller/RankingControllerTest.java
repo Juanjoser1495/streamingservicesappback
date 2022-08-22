@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -88,6 +89,23 @@ public class RankingControllerTest {
 		mockMvc.perform(post("/like").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(new ObjectMapper().writeValueAsString("{\"title\":\"Crepusculo\"}")))
 				.andExpect(status().isInternalServerError())
+				.andExpect(jsonPath("$.message", is("Internal Server Error")));
+	}
+
+	@Test
+	public void testRankingController_RankingGenresSuccessful() throws Exception {
+		Mockito.when(rankingService.rankingGenres()).thenReturn(RankingServiceObjects.getRankingGenres());
+
+		mockMvc.perform(get("/ranking/genres")).andExpect(status().isOk())
+				.andExpect(jsonPath("$.message", is("Data successufull retrieved")))
+				.andExpect(jsonPath("$.data.size()", is(2)));
+	}
+
+	@Test
+	public void testRankingController_RankingGenresError() throws Exception {
+		Mockito.when(rankingService.rankingGenres()).thenReturn(new HashMap<>());
+
+		mockMvc.perform(get("/ranking/genres")).andExpect(status().isInternalServerError())
 				.andExpect(jsonPath("$.message", is("Internal Server Error")));
 	}
 

@@ -1,14 +1,18 @@
 package com.selfdevelopment.streamingapp.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.selfdevelopment.streamingapp.entity.RankingTop10Mapped;
 import com.selfdevelopment.streamingapp.entity.customqueries.RankingTop10;
+import com.selfdevelopment.streamingapp.entity.database.Genre;
 import com.selfdevelopment.streamingapp.entity.database.Movie;
 import com.selfdevelopment.streamingapp.entity.database.Serie;
 import com.selfdevelopment.streamingapp.entity.model.request.AddVoteRequest;
@@ -91,6 +95,24 @@ public class RankingServiceImpl implements RankingService {
 		}
 
 		return isUpdated;
+	}
+	
+	@Override
+	public Map<String, Integer> rankingGenres() {
+		List<String> listGenre = genreRepository.findAll().stream().map(Genre::getGenre).collect(Collectors.toList());
+		
+		List<Movie> listMovies = movieRepository.findAll();
+		List<Serie> listSeries = serieRepository.findAll();
+		Map<String, Integer> listOfGenresByLikes =  new HashMap<>();
+		
+		listGenre.forEach(genre ->{
+			int likesMovies = listMovies.stream().filter(movie -> movie.getGenre().getGenre().equals(genre)).mapToInt(Movie::getLikes).sum();
+			int likesSeries = listSeries.stream().filter(serie -> serie.getGenre().getGenre().equals(genre)).mapToInt(Serie::getLikes).sum();
+			
+			listOfGenresByLikes.put(genre, likesMovies+likesSeries);
+		});
+		
+		return listOfGenresByLikes;
 	}
 
 }

@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +18,7 @@ import com.selfdevelopment.streamingapp.entity.RankingTop10Mapped;
 import com.selfdevelopment.streamingapp.entity.database.Movie;
 import com.selfdevelopment.streamingapp.entity.database.Serie;
 import com.selfdevelopment.streamingapp.entity.model.request.AddVoteRequest;
+import com.selfdevelopment.streamingapp.mockobjects.GenreServiceObject;
 import com.selfdevelopment.streamingapp.mockobjects.RankingServiceObjects;
 import com.selfdevelopment.streamingapp.repository.GenreRepository;
 import com.selfdevelopment.streamingapp.repository.MovieRepository;
@@ -116,5 +118,21 @@ public class RankingServiceTest {
 				
 		assertEquals(result, false);
 	}
+	
+	@Test
+	public void testRankigService_RankingGenres() {
+		Map<String, Integer> expect = RankingServiceObjects.getRankingGenres();
+		
+		Mockito.when(genreRepository.findAll()).thenReturn(GenreServiceObject.getListGenre());
+		Mockito.when(movieRepository.findAll()).thenReturn(RankingServiceObjects.getListMovieObject());
+		Mockito.when(serieRepository.findAll()).thenReturn(RankingServiceObjects.getListSerieObject());
+		
+		Map<String,Integer> result = rankingServiceImpl.rankingGenres();
+				
+		assertEquals(result, expect);
+	}
+
+
+	
 
 }

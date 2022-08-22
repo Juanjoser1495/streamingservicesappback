@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GenericObjectResponse {
+public class GenericListObjectResponse {
 
 	private String message;
 	private List<?> data;

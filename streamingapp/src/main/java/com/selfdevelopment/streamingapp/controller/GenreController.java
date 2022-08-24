@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,7 @@ public class GenreController {
 		this.genreService = genreService;
 	}
 	
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/genres")
 	public ResponseEntity<GenericListObjectResponse> findAllGenre(){
 		List<Genre> listGenre = genreService.findAllGenres();

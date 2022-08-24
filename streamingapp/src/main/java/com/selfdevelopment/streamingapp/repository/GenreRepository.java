@@ -17,7 +17,7 @@ public interface GenreRepository extends JpaRepository<Genre, Long> {
 			+ "select s.idserie, s.nameserie,s.imageurl,s.genreid,s.likes  from serie s) unionTables "
 			+ "inner join genre g on unionTables.genreid = g.idgenre "
 			+ "where upper(g.genre) = upper(:category)"
-			+ "order by unionTables.likes desc "
+			+ "order by unionTables.likes desc, unionTables.moviename "
 			+ "limit 10", nativeQuery = true)
 	List<RankingTop10> findTop10ByGenre(@Param("category") String category);
 	
@@ -26,7 +26,7 @@ public interface GenreRepository extends JpaRepository<Genre, Long> {
 			+ "union "
 			+ "select s.idserie, s.nameserie,s.imageurl,s.genreid,s.likes  from serie s) unionTables "
 			+ "inner join genre g on unionTables.genreid = g.idgenre "
-			+ "order by unionTables.likes desc "
+			+ "order by unionTables.likes desc, unionTables.moviename "
 			+ "limit 10",nativeQuery = true)
 	List<RankingTop10> findTop10AllGenre();
 

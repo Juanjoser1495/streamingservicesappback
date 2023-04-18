@@ -13,4 +13,5 @@ public class RankingTop10Mapped {
 	private String movieName;
 	private String imageUrl;
 	private String genre;
+	private Integer likes;
 }

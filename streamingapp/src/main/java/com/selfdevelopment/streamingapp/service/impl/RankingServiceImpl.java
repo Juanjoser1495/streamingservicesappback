@@ -48,6 +48,7 @@ public class RankingServiceImpl implements RankingService {
 			rankingElement.setGenre(element.getGenre());
 			rankingElement.setImageUrl(element.getImageurl());
 			rankingElement.setMovieName(element.getMoviename());
+			rankingElement.setLikes(element.getLikes());
 
 			response.add(rankingElement);
 		});
@@ -66,6 +67,7 @@ public class RankingServiceImpl implements RankingService {
 			rankingElement.setGenre(element.getGenre());
 			rankingElement.setImageUrl(element.getImageurl());
 			rankingElement.setMovieName(element.getMoviename());
+			rankingElement.setLikes(element.getLikes());
 
 			response.add(rankingElement);
 		});

@@ -42,13 +42,14 @@ public class RankingServiceImpl implements RankingService {
 		List<RankingTop10> listTop10ByGenre = genreRepository.findTop10ByGenre(category);
 
 		List<RankingTop10Mapped> response = new ArrayList<>();
-		listTop10ByGenre.stream().forEach((element) -> {
+		listTop10ByGenre.forEach((element) -> {
 			RankingTop10Mapped rankingElement = new RankingTop10Mapped();
 			rankingElement.setId(new Random().nextLong());
 			rankingElement.setGenre(element.getGenre());
 			rankingElement.setImageUrl(element.getImageurl());
 			rankingElement.setMovieName(element.getMoviename());
 			rankingElement.setLikes(element.getLikes());
+			rankingElement.setPosition(element.getPosition());
 
 			response.add(rankingElement);
 		});
@@ -61,13 +62,14 @@ public class RankingServiceImpl implements RankingService {
 		List<RankingTop10> listTop10 = genreRepository.findTop10AllGenre();
 		List<RankingTop10Mapped> response = new ArrayList<>();
 
-		listTop10.stream().forEach((element) -> {
+		listTop10.forEach((element) -> {
 			RankingTop10Mapped rankingElement = new RankingTop10Mapped();
 			rankingElement.setId(new Random().nextLong());
 			rankingElement.setGenre(element.getGenre());
 			rankingElement.setImageUrl(element.getImageurl());
 			rankingElement.setMovieName(element.getMoviename());
 			rankingElement.setLikes(element.getLikes());
+			rankingElement.setPosition(element.getPosition());
 
 			response.add(rankingElement);
 		});
@@ -84,7 +86,7 @@ public class RankingServiceImpl implements RankingService {
 			movie.setLikes(movie.getLikes() + 1);
 			movie = movieRepository.save(movie);
 
-			isUpdated = movie != null ? true : false;
+			isUpdated = movie != null;
 		} else {
 			Serie serie = serieRepository.findBySerieNameIgnoreCase(addVoteRequest.getTitle());
 
@@ -92,7 +94,7 @@ public class RankingServiceImpl implements RankingService {
 				serie.setLikes(serie.getLikes() + 1);
 				serie = serieRepository.save(serie);
 
-				isUpdated = serie != null ? true : false;
+				isUpdated = serie != null;
 			}
 		}
 

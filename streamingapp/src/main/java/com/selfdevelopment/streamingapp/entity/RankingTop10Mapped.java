@@ -14,4 +14,5 @@ public class RankingTop10Mapped {
 	private String imageUrl;
 	private String genre;
 	private Integer likes;
+	private Integer position;
 }

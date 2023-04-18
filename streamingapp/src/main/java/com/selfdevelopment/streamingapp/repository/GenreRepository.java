@@ -11,7 +11,8 @@ import com.selfdevelopment.streamingapp.entity.database.Genre;
 
 public interface GenreRepository extends JpaRepository<Genre, Long> {
 
-	@Query(value ="select unionTables.idmovie, unionTables.moviename,unionTables.imageurl,g.genre, unionTables.likes from "
+	@Query(value ="select unionTables.idmovie, unionTables.moviename,unionTables.imageurl,g.genre, unionTables.likes "
+			+ "ROW_NUMBER () OVER (ORDER BY unionTables.likes desc) as position from "
 			+ "(select m.idmovie, m.moviename,m.imageurl,m.genreid,m.likes  from movie m "
 			+ "union "
 			+ "select s.idserie, s.nameserie,s.imageurl,s.genreid,s.likes  from serie s) unionTables "
@@ -21,7 +22,8 @@ public interface GenreRepository extends JpaRepository<Genre, Long> {
 			+ "limit 10", nativeQuery = true)
 	List<RankingTop10> findTop10ByGenre(@Param("category") String category);
 	
-	@Query(value="select unionTables.idmovie, unionTables.moviename,unionTables.imageurl,g.genre, unionTables.likes from "
+	@Query(value="select unionTables.idmovie, unionTables.moviename,unionTables.imageurl,g.genre, unionTables.likes, "
+			+ "ROW_NUMBER () OVER (ORDER BY unionTables.likes desc) as position from"
 			+ "(select m.idmovie, m.moviename,m.imageurl,m.genreid,m.likes  from movie m "
 			+ "union "
 			+ "select s.idserie, s.nameserie,s.imageurl,s.genreid,s.likes  from serie s) unionTables "

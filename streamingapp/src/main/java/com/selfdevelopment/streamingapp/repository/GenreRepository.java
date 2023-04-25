@@ -11,22 +11,22 @@ import com.selfdevelopment.streamingapp.entity.database.Genre;
 
 public interface GenreRepository extends JpaRepository<Genre, Long> {
 
-	@Query(value ="select unionTables.idmovie, unionTables.moviename,unionTables.imageurl,g.genre, unionTables.likes "
+	@Query(value ="select unionTables.idmovie, unionTables.moviename,unionTables.imageurl,g.genre, unionTables.likes, unionTables.description, "
 			+ "ROW_NUMBER () OVER (ORDER BY unionTables.likes desc) as position from "
-			+ "(select m.idmovie, m.moviename,m.imageurl,m.genreid,m.likes  from movie m "
+			+ "(select m.idmovie, m.moviename,m.imageurl,m.genreid,m.likes, m.description  from movie m "
 			+ "union "
-			+ "select s.idserie, s.nameserie,s.imageurl,s.genreid,s.likes  from serie s) unionTables "
+			+ "select s.idserie, s.nameserie,s.imageurl,s.genreid,s.likes, s.description  from serie s) unionTables "
 			+ "inner join genre g on unionTables.genreid = g.idgenre "
 			+ "where upper(g.genre) = upper(:category)"
 			+ "order by unionTables.likes desc, unionTables.moviename "
 			+ "limit 10", nativeQuery = true)
 	List<RankingTop10> findTop10ByGenre(@Param("category") String category);
 	
-	@Query(value="select unionTables.idmovie, unionTables.moviename,unionTables.imageurl,g.genre, unionTables.likes, "
+	@Query(value="select unionTables.idmovie, unionTables.moviename,unionTables.imageurl,g.genre, unionTables.likes, unionTables.description, "
 			+ "ROW_NUMBER () OVER (ORDER BY unionTables.likes desc) as position from"
-			+ "(select m.idmovie, m.moviename,m.imageurl,m.genreid,m.likes  from movie m "
+			+ "(select m.idmovie, m.moviename,m.imageurl,m.genreid,m.likes, m.description  from movie m "
 			+ "union "
-			+ "select s.idserie, s.nameserie,s.imageurl,s.genreid,s.likes  from serie s) unionTables "
+			+ "select s.idserie, s.nameserie,s.imageurl,s.genreid,s.likes, s.description  from serie s) unionTables "
 			+ "inner join genre g on unionTables.genreid = g.idgenre "
 			+ "order by unionTables.likes desc, unionTables.moviename "
 			+ "limit 10",nativeQuery = true)

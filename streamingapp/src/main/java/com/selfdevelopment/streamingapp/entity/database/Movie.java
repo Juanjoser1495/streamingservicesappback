@@ -34,4 +34,6 @@ public class Movie {
 	
 	@Column(name = "likes")
 	private Integer likes;
+	@Column(name = "description")
+	private String description;
 }

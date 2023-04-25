@@ -34,4 +34,6 @@ public class Serie {
 	
 	@Column(name = "likes")
 	private Integer likes;
+	@Column(name = "description")
+	private String description;
 }

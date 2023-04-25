@@ -50,6 +50,7 @@ public class RankingServiceImpl implements RankingService {
 			rankingElement.setMovieName(element.getMoviename());
 			rankingElement.setLikes(element.getLikes());
 			rankingElement.setPosition(element.getPosition());
+			rankingElement.setDescription(element.getDescription());
 
 			response.add(rankingElement);
 		});
@@ -70,6 +71,7 @@ public class RankingServiceImpl implements RankingService {
 			rankingElement.setMovieName(element.getMoviename());
 			rankingElement.setLikes(element.getLikes());
 			rankingElement.setPosition(element.getPosition());
+			rankingElement.setDescription(element.getDescription());
 
 			response.add(rankingElement);
 		});

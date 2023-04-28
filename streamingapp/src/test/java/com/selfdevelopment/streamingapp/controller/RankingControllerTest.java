@@ -93,6 +93,25 @@ public class RankingControllerTest {
 	}
 
 	@Test
+	public void testRankingController_removeAVoteSuccessful() throws Exception {
+		Mockito.when(rankingService.removeAVote(any(AddRemoveVoteRequest.class))).thenReturn(true);
+
+		mockMvc.perform(post("/dislike").contentType(MediaType.APPLICATION_JSON_VALUE)
+						.content(new ObjectMapper().writeValueAsString("{\"title\":\"Crepusculo\"}")))
+				.andExpect(status().isOk()).andExpect(jsonPath("$.message", is("Data updated")));
+	}
+
+	@Test
+	public void testRankingController_removeAVoteError() throws Exception {
+		Mockito.when(rankingService.removeAVote(any(AddRemoveVoteRequest.class))).thenReturn(false);
+
+		mockMvc.perform(post("/dislike").contentType(MediaType.APPLICATION_JSON_VALUE)
+						.content(new ObjectMapper().writeValueAsString("{\"title\":\"Crepusculo\"}")))
+				.andExpect(status().isInternalServerError())
+				.andExpect(jsonPath("$.message", is("Internal Server Error")));
+	}
+
+	@Test
 	public void testRankingController_RankingGenresSuccessful() throws Exception {
 		Mockito.when(rankingService.rankingGenres()).thenReturn(RankingServiceObjects.getRankingGenres());
 

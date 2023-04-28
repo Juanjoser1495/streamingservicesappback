@@ -68,7 +68,7 @@ public class RankingServiceObjects {
 		List<RankingTop10Mapped> listRankingTop10Mapped = new ArrayList<>();
 
 		RankingTop10Mapped theGreyMan = new RankingTop10Mapped(Long.valueOf(1), "The Grey Man",
-				"http://somePath.com/thegreyman", "action");
+				"http://somePath.com/thegreyman", "action",1,1,"The grey man");
 
 		RankingTop10Mapped jumanji = new RankingTop10Mapped();
 		jumanji.setGenre("action");
@@ -86,7 +86,7 @@ public class RankingServiceObjects {
 		List<RankingTop10Mapped> listRankingTop10Mapped = new ArrayList<>();
 
 		RankingTop10Mapped theGreyMan = new RankingTop10Mapped(Long.valueOf(1), "The Grey Man",
-				"http://somePath.com/thegreyman", "action");
+				"http://somePath.com/thegreyman", "action",1,1,"The grey man");
 
 		RankingTop10Mapped jumanji = new RankingTop10Mapped();
 		jumanji.setGenre("superhero");

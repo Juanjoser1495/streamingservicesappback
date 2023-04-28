@@ -41,7 +41,7 @@ public class RankingServiceTest {
 	RankingServiceImpl rankingServiceImpl;
 	
 	@Test
-	public void testRankigService_FetchTop10ByGenre() {
+	public void testRankingService_FetchTop10ByGenre() {
 		Mockito.when(genreRepository.findTop10ByGenre(anyString())).thenReturn(RankingServiceObjects.getRankingTop10ByGenreObject());
 		
 		List<RankingTop10Mapped> result = rankingServiceImpl.fetchTop10ByGenre("action");
@@ -59,7 +59,7 @@ public class RankingServiceTest {
 	
 	
 	@Test
-	public void testRankigService_FetchTop10AllGenre() {
+	public void testRankingService_FetchTop10AllGenre() {
 		Mockito.when(genreRepository.findTop10AllGenre()).thenReturn(RankingServiceObjects.getRankingTop10AllGenreObject());
 		
 		List<RankingTop10Mapped> result = rankingServiceImpl.fetchTop10AllGenre();
@@ -77,7 +77,7 @@ public class RankingServiceTest {
 	
 	
 	@Test
-	public void testRankigService_AddAVoteMovieSuccessful() {
+	public void testRankingService_AddAVoteMovieSuccessful() {
 		Mockito.when(movieRepository.findByMovieNameIgnoreCase(anyString())).thenReturn(RankingServiceObjects.getMovieObject());
 		Mockito.when(movieRepository.save(any(Movie.class))).thenReturn(RankingServiceObjects.getMovieObject());
 		
@@ -87,7 +87,7 @@ public class RankingServiceTest {
 	}
 	
 	@Test
-	public void testRankigService_AddAVoteMovieError() {
+	public void testRankingService_AddAVoteMovieError() {
 		Mockito.when(movieRepository.findByMovieNameIgnoreCase(anyString())).thenReturn(RankingServiceObjects.getMovieObject());
 		Mockito.when(movieRepository.save(any(Movie.class))).thenReturn(null);
 		
@@ -97,7 +97,7 @@ public class RankingServiceTest {
 	}
 	
 	@Test
-	public void testRankigService_AddAVoteSerieSuccessful() {
+	public void testRankingService_AddAVoteSerieSuccessful() {
 		Mockito.when(movieRepository.findByMovieNameIgnoreCase(anyString())).thenReturn(null);
 		Mockito.when(serieRepository.findBySerieNameIgnoreCase(anyString())).thenReturn(RankingServiceObjects.getSerieObject());
 		Mockito.when(serieRepository.save(any(Serie.class))).thenReturn(RankingServiceObjects.getSerieObject());
@@ -108,7 +108,7 @@ public class RankingServiceTest {
 	}
 	
 	@Test
-	public void testRankigService_AddAVoteSerieError() {
+	public void testRankingService_AddAVoteSerieError() {
 		Mockito.when(movieRepository.findByMovieNameIgnoreCase(anyString())).thenReturn(null);
 		Mockito.when(serieRepository.findBySerieNameIgnoreCase(anyString())).thenReturn(RankingServiceObjects.getSerieObject());
 		Mockito.when(serieRepository.save(any(Serie.class))).thenReturn(null);
@@ -118,9 +118,52 @@ public class RankingServiceTest {
 				
 		assertEquals(result, false);
 	}
+
+	@Test
+	public void testRankingService_RemoveAVoteMovieSuccessful() {
+		Mockito.when(movieRepository.findByMovieNameIgnoreCase(anyString())).thenReturn(RankingServiceObjects.getMovieObject());
+		Mockito.when(movieRepository.save(any(Movie.class))).thenReturn(RankingServiceObjects.getMovieObject());
+
+		boolean result = rankingServiceImpl.removeAVote(new AddRemoveVoteRequest("fast and furious"));
+
+		assertEquals(result, true);
+	}
+
+	@Test
+	public void testRankingService_RemoveAVoteMovieError() {
+		Mockito.when(movieRepository.findByMovieNameIgnoreCase(anyString())).thenReturn(RankingServiceObjects.getMovieObject());
+		Mockito.when(movieRepository.save(any(Movie.class))).thenReturn(null);
+
+		boolean result = rankingServiceImpl.removeAVote(new AddRemoveVoteRequest("fast and furious"));
+
+		assertEquals(result, false);
+	}
+
+	@Test
+	public void testRankingService_RemoveAVoteSerieSuccessful() {
+		Mockito.when(movieRepository.findByMovieNameIgnoreCase(anyString())).thenReturn(null);
+		Mockito.when(serieRepository.findBySerieNameIgnoreCase(anyString())).thenReturn(RankingServiceObjects.getSerieObject());
+		Mockito.when(serieRepository.save(any(Serie.class))).thenReturn(RankingServiceObjects.getSerieObject());
+
+		boolean result = rankingServiceImpl.removeAVote(new AddRemoveVoteRequest("the punisher"));
+
+		assertEquals(result, true);
+	}
+
+	@Test
+	public void testRankingService_RemoveAVoteSerieError() {
+		Mockito.when(movieRepository.findByMovieNameIgnoreCase(anyString())).thenReturn(null);
+		Mockito.when(serieRepository.findBySerieNameIgnoreCase(anyString())).thenReturn(RankingServiceObjects.getSerieObject());
+		Mockito.when(serieRepository.save(any(Serie.class))).thenReturn(null);
+
+
+		boolean result = rankingServiceImpl.removeAVote(new AddRemoveVoteRequest("the punisher"));
+
+		assertEquals(result, false);
+	}
 	
 	@Test
-	public void testRankigService_RankingGenres() {
+	public void testRankingService_RankingGenres() {
 		Map<String, Integer> expect = RankingServiceObjects.getRankingGenres();
 		
 		Mockito.when(genreRepository.findAll()).thenReturn(GenreServiceObject.getListGenre());

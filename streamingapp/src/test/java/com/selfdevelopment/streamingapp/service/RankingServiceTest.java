@@ -17,7 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.selfdevelopment.streamingapp.entity.RankingTop10Mapped;
 import com.selfdevelopment.streamingapp.entity.database.Movie;
 import com.selfdevelopment.streamingapp.entity.database.Serie;
-import com.selfdevelopment.streamingapp.entity.model.request.AddVoteRequest;
+import com.selfdevelopment.streamingapp.entity.model.request.AddRemoveVoteRequest;
 import com.selfdevelopment.streamingapp.mockobjects.GenreServiceObject;
 import com.selfdevelopment.streamingapp.mockobjects.RankingServiceObjects;
 import com.selfdevelopment.streamingapp.repository.GenreRepository;
@@ -81,7 +81,7 @@ public class RankingServiceTest {
 		Mockito.when(movieRepository.findByMovieNameIgnoreCase(anyString())).thenReturn(RankingServiceObjects.getMovieObject());
 		Mockito.when(movieRepository.save(any(Movie.class))).thenReturn(RankingServiceObjects.getMovieObject());
 		
-		boolean result = rankingServiceImpl.addAVote(new AddVoteRequest("fast and furious"));
+		boolean result = rankingServiceImpl.addAVote(new AddRemoveVoteRequest("fast and furious"));
 				
 		assertEquals(result, true);
 	}
@@ -91,7 +91,7 @@ public class RankingServiceTest {
 		Mockito.when(movieRepository.findByMovieNameIgnoreCase(anyString())).thenReturn(RankingServiceObjects.getMovieObject());
 		Mockito.when(movieRepository.save(any(Movie.class))).thenReturn(null);
 		
-		boolean result = rankingServiceImpl.addAVote(new AddVoteRequest("fast and furious"));
+		boolean result = rankingServiceImpl.addAVote(new AddRemoveVoteRequest("fast and furious"));
 				
 		assertEquals(result, false);
 	}
@@ -102,7 +102,7 @@ public class RankingServiceTest {
 		Mockito.when(serieRepository.findBySerieNameIgnoreCase(anyString())).thenReturn(RankingServiceObjects.getSerieObject());
 		Mockito.when(serieRepository.save(any(Serie.class))).thenReturn(RankingServiceObjects.getSerieObject());
 		
-		boolean result = rankingServiceImpl.addAVote(new AddVoteRequest("the punisher"));
+		boolean result = rankingServiceImpl.addAVote(new AddRemoveVoteRequest("the punisher"));
 				
 		assertEquals(result, true);
 	}
@@ -114,7 +114,7 @@ public class RankingServiceTest {
 		Mockito.when(serieRepository.save(any(Serie.class))).thenReturn(null);
 		
 		
-		boolean result = rankingServiceImpl.addAVote(new AddVoteRequest("the punisher"));
+		boolean result = rankingServiceImpl.addAVote(new AddRemoveVoteRequest("the punisher"));
 				
 		assertEquals(result, false);
 	}

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.selfdevelopment.streamingapp.entity.RankingTop10Mapped;
-import com.selfdevelopment.streamingapp.entity.model.request.AddVoteRequest;
+import com.selfdevelopment.streamingapp.entity.model.request.AddRemoveVoteRequest;
 import com.selfdevelopment.streamingapp.entity.model.response.GenericMapObjectResponse;
 import com.selfdevelopment.streamingapp.entity.model.response.RankingTop10Response;
 import com.selfdevelopment.streamingapp.entity.model.response.StringResponse;
@@ -61,8 +61,20 @@ public class RankingController {
 
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping(value = "/like")
-	public ResponseEntity<StringResponse> addAVote(@RequestBody AddVoteRequest addVoteRequest) {
-		boolean isUpdated = rankingService.addAVote(addVoteRequest);
+	public ResponseEntity<StringResponse> addAVote(@RequestBody AddRemoveVoteRequest addRemoveVoteRequest) {
+		boolean isUpdated = rankingService.addAVote(addRemoveVoteRequest);
+		if (isUpdated) {
+			return new ResponseEntity<>(new StringResponse(StreamingAppConstants.SUCCESSFULL_UPDATED), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(new StringResponse(StreamingAppConstants.INTERNAL_SERVER_ERROR),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@CrossOrigin(origins = "http://localhost:3000")
+	@PostMapping(value = "/dislike")
+	public ResponseEntity<StringResponse> remoteAVote(@RequestBody AddRemoveVoteRequest addRemoveVoteRequest) {
+		boolean isUpdated = rankingService.removeAVote(addRemoveVoteRequest);
 		if (isUpdated) {
 			return new ResponseEntity<>(new StringResponse(StreamingAppConstants.SUCCESSFULL_UPDATED), HttpStatus.OK);
 		} else {

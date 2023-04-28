@@ -15,7 +15,7 @@ import com.selfdevelopment.streamingapp.entity.customqueries.RankingTop10;
 import com.selfdevelopment.streamingapp.entity.database.Genre;
 import com.selfdevelopment.streamingapp.entity.database.Movie;
 import com.selfdevelopment.streamingapp.entity.database.Serie;
-import com.selfdevelopment.streamingapp.entity.model.request.AddVoteRequest;
+import com.selfdevelopment.streamingapp.entity.model.request.AddRemoveVoteRequest;
 import com.selfdevelopment.streamingapp.repository.GenreRepository;
 import com.selfdevelopment.streamingapp.repository.MovieRepository;
 import com.selfdevelopment.streamingapp.repository.SerieRepository;
@@ -80,20 +80,44 @@ public class RankingServiceImpl implements RankingService {
 	}
 
 	@Override
-	public boolean addAVote(AddVoteRequest addVoteRequest) {
+	public boolean addAVote(AddRemoveVoteRequest addRemoveVoteRequest) {
 		boolean isUpdated = false;
 
-		Movie movie = movieRepository.findByMovieNameIgnoreCase(addVoteRequest.getTitle());
+		Movie movie = movieRepository.findByMovieNameIgnoreCase(addRemoveVoteRequest.getTitle());
 		if (movie != null) {
 			movie.setLikes(movie.getLikes() + 1);
 			movie = movieRepository.save(movie);
 
 			isUpdated = movie != null;
 		} else {
-			Serie serie = serieRepository.findBySerieNameIgnoreCase(addVoteRequest.getTitle());
+			Serie serie = serieRepository.findBySerieNameIgnoreCase(addRemoveVoteRequest.getTitle());
 
 			if (serie != null) {
 				serie.setLikes(serie.getLikes() + 1);
+				serie = serieRepository.save(serie);
+
+				isUpdated = serie != null;
+			}
+		}
+
+		return isUpdated;
+	}
+
+	@Override
+	public boolean removeAVote(AddRemoveVoteRequest addRemoveVoteRequest) {
+		boolean isUpdated = false;
+
+		Movie movie = movieRepository.findByMovieNameIgnoreCase(addRemoveVoteRequest.getTitle());
+		if (movie != null) {
+			movie.setLikes(movie.getLikes() - 1);
+			movie = movieRepository.save(movie);
+
+			isUpdated = movie != null;
+		} else {
+			Serie serie = serieRepository.findBySerieNameIgnoreCase(addRemoveVoteRequest.getTitle());
+
+			if (serie != null) {
+				serie.setLikes(serie.getLikes() - 1);
 				serie = serieRepository.save(serie);
 
 				isUpdated = serie != null;

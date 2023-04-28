@@ -22,7 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.selfdevelopment.streamingapp.entity.model.request.AddVoteRequest;
+import com.selfdevelopment.streamingapp.entity.model.request.AddRemoveVoteRequest;
 import com.selfdevelopment.streamingapp.mockobjects.RankingServiceObjects;
 import com.selfdevelopment.streamingapp.service.RankingService;
 
@@ -75,7 +75,7 @@ public class RankingControllerTest {
 
 	@Test
 	public void testRankingController_AddAVoteSuccessful() throws Exception {
-		Mockito.when(rankingService.addAVote(any(AddVoteRequest.class))).thenReturn(true);
+		Mockito.when(rankingService.addAVote(any(AddRemoveVoteRequest.class))).thenReturn(true);
 
 		mockMvc.perform(post("/like").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(new ObjectMapper().writeValueAsString("{\"title\":\"Crepusculo\"}")))
@@ -84,7 +84,7 @@ public class RankingControllerTest {
 
 	@Test
 	public void testRankingController_AddAVoteError() throws Exception {
-		Mockito.when(rankingService.addAVote(any(AddVoteRequest.class))).thenReturn(false);
+		Mockito.when(rankingService.addAVote(any(AddRemoveVoteRequest.class))).thenReturn(false);
 
 		mockMvc.perform(post("/like").contentType(MediaType.APPLICATION_JSON_VALUE)
 				.content(new ObjectMapper().writeValueAsString("{\"title\":\"Crepusculo\"}")))

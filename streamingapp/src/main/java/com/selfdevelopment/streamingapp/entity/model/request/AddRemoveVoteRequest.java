@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddVoteRequest {
+public class AddRemoveVoteRequest {
 
 	private String title;
 }
